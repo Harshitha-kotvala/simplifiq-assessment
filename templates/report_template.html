@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --indigo: #4f46e5;
+    --indigo-light: #6366f1;
+    --indigo-pale: #eef2ff;
+    --slate: #1e293b;
+    --slate-mid: #475569;
+    --slate-light: #94a3b8;
+    --border: #e2e8f0;
+    --white: #ffffff;
+    --green: #10b981;
+    --amber: #f59e0b;
+    --red: #ef4444;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    color: var(--slate);
+    background: var(--white);
+    font-size: 10pt;
+    line-height: 1.65;
+  }
+
+  /* ── COVER PAGE ─────────────────────────────── */
+  .cover {
+    page: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(150deg, #1e1b4b 0%, #312e81 40%, #4f46e5 100%);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-bg-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .cover-bg-circle.c1 { width: 500px; height: 500px; top: -150px; right: -150px; }
+  .cover-bg-circle.c2 { width: 300px; height: 300px; bottom: 100px; left: -80px; }
+  .cover-bg-circle.c3 { width: 200px; height: 200px; bottom: 300px; right: 80px; }
+
+  .cover-top {
+    padding: 48px 56px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cover-logo {
+    font-size: 22pt;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.5px;
+  }
+  .cover-logo span {
+    color: #a5b4fc;
+  }
+
+  .cover-badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: rgba(255,255,255,0.9);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 8pt;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .cover-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 56px;
+  }
+
+  .cover-label {
+    font-size: 8pt;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #a5b4fc;
+    margin-bottom: 20px;
+  }
+
+  .cover-company {
+    font-size: 42pt;
+    font-weight: 800;
+    color: white;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+  }
+
+  .cover-title {
+    font-size: 16pt;
+    font-weight: 400;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 48px;
+  }
+
+  .cover-divider {
+    width: 64px;
+    height: 4px;
+    background: #a5b4fc;
+    border-radius: 2px;
+    margin-bottom: 36px;
+  }
+
+  .cover-meta {
+    display: flex;
+    gap: 40px;
+  }
+
+  .cover-meta-item label {
+    display: block;
+    font-size: 7pt;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #a5b4fc;
+    margin-bottom: 4px;
+  }
+
+  .cover-meta-item span {
+    font-size: 10pt;
+    font-weight: 500;
+    color: white;
+  }
+
+  .cover-footer {
+    padding: 32px 56px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cover-footer p {
+    font-size: 8pt;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .cover-footer .confidential {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.7);
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 7pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ── PAGE LAYOUT ─────────────────────────────── */
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  @page cover {
+    margin: 0;
+  }
+
+  .page-break { page-break-before: always; }
+
+  .content-page {
+    padding: 48px 56px;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  /* ── PAGE HEADER ─────────────────────────────── */
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 36px;
+  }
+
+  .page-header-logo {
+    font-size: 13pt;
+    font-weight: 800;
+    color: var(--indigo);
+    letter-spacing: -0.3px;
+  }
+
+  .page-header-info {
+    font-size: 8pt;
+    color: var(--slate-light);
+    text-align: right;
+  }
+
+  /* ── SECTION HEADERS ─────────────────────────── */
+  .section-label {
+    display: inline-block;
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--indigo-light);
+    background: var(--indigo-pale);
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  h1.section-title {
+    font-size: 22pt;
+    font-weight: 800;
+    color: var(--slate);
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  h2.section-title {
+    font-size: 16pt;
+    font-weight: 700;
+    color: var(--slate);
+    letter-spacing: -0.3px;
+    margin-bottom: 16px;
+  }
+
+  h3.sub-title {
+    font-size: 11pt;
+    font-weight: 600;
+    color: var(--slate);
+    margin-bottom: 8px;
+  }
+
+  /* ── EXECUTIVE SUMMARY ───────────────────────── */
+  .exec-summary-box {
+    background: linear-gradient(135deg, var(--indigo-pale) 0%, #f0f9ff 100%);
+    border-left: 5px solid var(--indigo);
+    border-radius: 0 12px 12px 0;
+    padding: 28px 32px;
+    margin-bottom: 32px;
+  }
+
+  .exec-summary-box p {
+    font-size: 11pt;
+    color: var(--slate);
+    line-height: 1.75;
+  }
+
+  /* ── INFO CARDS ──────────────────────────────── */
+  .card-grid {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  .info-card {
+    flex: 1;
+    min-width: 140px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+
+  .info-card .card-label {
+    font-size: 7.5pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--slate-light);
+    margin-bottom: 8px;
+  }
+
+  .info-card .card-value {
+    font-size: 10.5pt;
+    font-weight: 600;
+    color: var(--slate);
+    line-height: 1.3;
+  }
+
+  /* ── BODY TEXT ───────────────────────────────── */
+  .body-text {
+    font-size: 10pt;
+    color: var(--slate-mid);
+    line-height: 1.75;
+    margin-bottom: 20px;
+  }
+
+  /* ── PAIN POINTS ─────────────────────────────── */
+  .pain-point {
+    display: flex;
+    gap: 20px;
+    padding: 20px 24px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 16px;
+    background: var(--white);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .pain-icon {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    background: #fef3c7;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    line-height: 36px;
+    text-align: center;
+  }
+
+  .pain-content h3 {
+    font-size: 10.5pt;
+    font-weight: 600;
+    color: var(--slate);
+    margin-bottom: 6px;
+  }
+
+  .pain-content p {
+    font-size: 9.5pt;
+    color: var(--slate-mid);
+    line-height: 1.65;
+  }
+
+  /* ── OPPORTUNITY CARDS ───────────────────────── */
+  .opportunity-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .opportunity-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--indigo);
+  }
+
+  .opp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+
+  .opp-title {
+    font-size: 11pt;
+    font-weight: 700;
+    color: var(--slate);
+  }
+
+  .complexity-badge {
+    font-size: 7.5pt;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  .complexity-Low { background: #dcfce7; color: #166534; }
+  .complexity-Medium { background: #fef9c3; color: #854d0e; }
+  .complexity-High { background: #fee2e2; color: #991b1b; }
+
+  .opp-description {
+    font-size: 9.5pt;
+    color: var(--slate-mid);
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+
+  .opp-impact {
+    background: var(--indigo-pale);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 9pt;
+    color: var(--indigo);
+    font-weight: 500;
+  }
+
+  .opp-impact::before {
+    content: '📈 Impact: ';
+    font-weight: 700;
+  }
+
+  /* ── NEXT STEPS ──────────────────────────────── */
+  .next-steps-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .next-steps-list li {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+
+  .step-number {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    background: var(--indigo);
+    color: white;
+    border-radius: 50%;
+    font-size: 9pt;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 28px;
+    text-align: center;
+  }
+
+  .step-text {
+    font-size: 10pt;
+    color: var(--slate-mid);
+    padding-top: 4px;
+    line-height: 1.6;
+  }
+
+  /* ── CLOSING CTA ─────────────────────────────── */
+  .closing-box {
+    background: linear-gradient(135deg, #1e1b4b 0%, #4f46e5 100%);
+    border-radius: 16px;
+    padding: 36px 40px;
+    margin-top: 24px;
+    color: white;
+  }
+
+  .closing-box h3 {
+    font-size: 16pt;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .closing-box p {
+    font-size: 10pt;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .closing-contact {
+    display: flex;
+    gap: 32px;
+  }
+
+  .closing-contact-item label {
+    display: block;
+    font-size: 7.5pt;
+    color: #a5b4fc;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+
+  .closing-contact-item span {
+    font-size: 9.5pt;
+    color: white;
+    font-weight: 500;
+  }
+
+  /* ── PAGE FOOTER ─────────────────────────────── */
+  .page-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 14px 56px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 7.5pt;
+    color: var(--slate-light);
+    background: white;
+  }
+
+  /* ── TAGS ────────────────────────────────────── */
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .tag {
+    background: var(--indigo-pale);
+    color: var(--indigo);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 8.5pt;
+    font-weight: 500;
+  }
+
+  .tag.green { background: #dcfce7; color: #166534; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════ -->
+<!--  COVER PAGE                               -->
+<!-- ══════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-bg-circle c1"></div>
+  <div class="cover-bg-circle c2"></div>
+  <div class="cover-bg-circle c3"></div>
+
+  <div class="cover-top">
+    <div class="cover-logo">Simplif<span>IQ</span></div>
+    <div class="cover-badge">AI Automation Audit</div>
+  </div>
+
+  <div class="cover-main">
+    <div class="cover-label">Prepared exclusively for</div>
+    <div class="cover-company">{{ company_name }}</div>
+    <div class="cover-title">AI Automation Opportunity Report</div>
+    <div class="cover-divider"></div>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <label>Prepared for</label>
+        <span>{{ contact_name if contact_name else company_name }}</span>
+      </div>
+      <div class="cover-meta-item">
+        <label>Industry</label>
+        <span>{{ industry }}</span>
+      </div>
+      <div class="cover-meta-item">
+        <label>Date</label>
+        <span>{{ generated_date }}</span>
+      </div>
+      <div class="cover-meta-item">
+        <label>Report ID</label>
+        <span>{{ report_id }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <p>simplifiq.ai · AI Automation for Modern Businesses</p>
+    <span class="confidential">Confidential</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!--  PAGE 2: EXECUTIVE SUMMARY + OVERVIEW     -->
+<!-- ══════════════════════════════════════════ -->
+<div class="page-break"></div>
+<div class="content-page">
+  <div class="page-header">
+    <div class="page-header-logo">SimplifIQ</div>
+    <div class="page-header-info">
+      {{ company_name }} · AI Automation Audit<br>
+      {{ generated_date }} · {{ report_id }}
+    </div>
+  </div>
+
+  <div class="section-label">Executive Summary</div>
+  <h1 class="section-title">A Snapshot of What We Found</h1>
+
+  <div class="exec-summary-box">
+    <p>{{ executive_summary }}</p>
+  </div>
+
+  <!-- Company quick facts -->
+  <div class="card-grid">
+    <div class="info-card">
+      <div class="card-label">Industry</div>
+      <div class="card-value">{{ industry }}</div>
+    </div>
+    <div class="info-card">
+      <div class="card-label">Market Segment</div>
+      <div class="card-value">{{ target_market }}</div>
+    </div>
+    <div class="info-card">
+      <div class="card-label">Company Scale</div>
+      <div class="card-value">{{ company_size_signal | title }}</div>
+    </div>
+    <div class="info-card">
+      <div class="card-label">Data Confidence</div>
+      <div class="card-value">{{ confidence | title }}</div>
+    </div>
+  </div>
+
+  <div class="section-label">Company Overview</div>
+  <h2 class="section-title">About {{ company_name }}</h2>
+  <p class="body-text">{{ company_overview }}</p>
+
+  {% if key_products_services %}
+  <div class="tag-list">
+    {% for service in key_products_services %}
+    <span class="tag">{{ service }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if tech_signals %}
+  <div class="tag-list" style="margin-top: 10px;">
+    {% for tech in tech_signals %}
+    <span class="tag green">{{ tech }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!--  PAGE 3: LANDSCAPE + PAIN POINTS          -->
+<!-- ══════════════════════════════════════════ -->
+<div class="page-break"></div>
+<div class="content-page">
+  <div class="page-header">
+    <div class="page-header-logo">SimplifIQ</div>
+    <div class="page-header-info">
+      {{ company_name }} · AI Automation Audit<br>
+      {{ generated_date }} · {{ report_id }}
+    </div>
+  </div>
+
+  <div class="section-label">Landscape Analysis</div>
+  <h2 class="section-title">Where {{ industry }} Companies Are Today</h2>
+  <p class="body-text">{{ current_landscape_analysis }}</p>
+
+  <div class="section-label" style="margin-top: 28px;">Identified Pain Points</div>
+  <h2 class="section-title">Challenges Specific to {{ company_name }}</h2>
+
+  {% set pain_icons = ['⚠️', '🔄', '📊', '⏱️'] %}
+  {% for pain in pain_points %}
+  <div class="pain-point">
+    <div class="pain-icon">{{ pain_icons[loop.index0 % 4] }}</div>
+    <div class="pain-content">
+      <h3>{{ pain.title }}</h3>
+      <p>{{ pain.description }}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!--  PAGE 4: AUTOMATION OPPORTUNITIES         -->
+<!-- ══════════════════════════════════════════ -->
+<div class="page-break"></div>
+<div class="content-page">
+  <div class="page-header">
+    <div class="page-header-logo">SimplifIQ</div>
+    <div class="page-header-info">
+      {{ company_name }} · AI Automation Audit<br>
+      {{ generated_date }} · {{ report_id }}
+    </div>
+  </div>
+
+  <div class="section-label">Opportunities</div>
+  <h1 class="section-title">Where AI Can Make the Biggest Impact</h1>
+  <p class="body-text">Based on our analysis, these are the highest-leverage automation opportunities for {{ company_name }}.</p>
+
+  {% for opp in automation_opportunities %}
+  <div class="opportunity-card">
+    <div class="opp-header">
+      <div class="opp-title">{{ opp.title }}</div>
+      <span class="complexity-badge complexity-{{ opp.complexity }}">{{ opp.complexity }} Complexity</span>
+    </div>
+    <div class="opp-description">{{ opp.description }}</div>
+    <div class="opp-impact">{{ opp.impact }}</div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!--  PAGE 5: FIT + NEXT STEPS + CTA           -->
+<!-- ══════════════════════════════════════════ -->
+<div class="page-break"></div>
+<div class="content-page">
+  <div class="page-header">
+    <div class="page-header-logo">SimplifIQ</div>
+    <div class="page-header-info">
+      {{ company_name }} · AI Automation Audit<br>
+      {{ generated_date }} · {{ report_id }}
+    </div>
+  </div>
+
+  <div class="section-label">Our Fit</div>
+  <h2 class="section-title">Why SimplifIQ for {{ company_name }}</h2>
+  <p class="body-text">{{ simplyfiq_fit }}</p>
+
+  <div class="section-label" style="margin-top: 28px;">Next Steps</div>
+  <h2 class="section-title">Recommended Actions</h2>
+
+  <ul class="next-steps-list">
+    {% for step in recommended_next_steps %}
+    <li>
+      <div class="step-number">{{ loop.index }}</div>
+      <div class="step-text">{{ step }}</div>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="closing-box">
+    <h3>Let's Talk, {{ contact_first_name }}</h3>
+    <p>{{ closing_note }}</p>
+    <div class="closing-contact">
+      <div class="closing-contact-item">
+        <label>Email</label>
+        <span>hello@simplifiq.ai</span>
+      </div>
+      <div class="closing-contact-item">
+        <label>Website</label>
+        <span>simplifiq.ai</span>
+      </div>
+      <div class="closing-contact-item">
+        <label>Report Generated</label>
+        <span>{{ generated_date }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

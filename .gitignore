@@ -1,0 +1,6 @@
+.env
+service_account*.json
+backend/service_account*.json
+backend/simplifiq-*.json
+output/
+__pycache__/

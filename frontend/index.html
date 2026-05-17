@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SimplifIQ — Free AI Automation Audit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --indigo: #4f46e5;
+      --indigo-h: #4338ca;
+      --indigo-pale: #eef2ff;
+      --slate: #0f172a;
+      --slate-mid: #334155;
+      --slate-light: #94a3b8;
+      --border: #e2e8f0;
+      --white: #ffffff;
+      --success: #10b981;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: #f8fafc;
+      color: var(--slate);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV ── */
+    nav {
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--slate);
+      letter-spacing: -0.5px;
+    }
+
+    .logo span { color: var(--indigo); }
+
+    .nav-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      background: var(--indigo-pale);
+      color: var(--indigo);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 65px);
+    }
+
+    .hero-left {
+      padding: 80px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: white;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--indigo);
+      background: var(--indigo-pale);
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+      width: fit-content;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--indigo);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hero-title {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      color: var(--slate);
+      margin-bottom: 20px;
+    }
+
+    .hero-title em {
+      font-style: normal;
+      color: var(--indigo);
+    }
+
+    .hero-subtitle {
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--slate-mid);
+      line-height: 1.7;
+      margin-bottom: 48px;
+      max-width: 420px;
+    }
+
+    .proof-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .proof-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14.5px;
+      color: var(--slate-mid);
+      line-height: 1.5;
+    }
+
+    .proof-list li::before {
+      content: '✓';
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      background: var(--success);
+      color: white;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    /* ── FORM SIDE ── */
+    .hero-right {
+      background: linear-gradient(145deg, #1e1b4b 0%, #312e81 50%, #3730a3 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 56px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+      top: -100px;
+      right: -100px;
+    }
+
+    .hero-right::after {
+      content: '';
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 50%;
+      bottom: -60px;
+      left: -60px;
+    }
+
+    .form-card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px 44px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-card-header {
+      margin-bottom: 28px;
+    }
+
+    .form-card-header h2 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--slate);
+      margin-bottom: 6px;
+    }
+
+    .form-card-header p {
+      font-size: 13.5px;
+      color: var(--slate-light);
+      line-height: 1.5;
+    }
+
+    .form-divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 24px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      color: var(--slate-mid);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--slate);
+      background: #fafafa;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: var(--indigo);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: #cbd5e1;
+    }
+
+    .field textarea {
+      resize: none;
+      height: 80px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--indigo);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      background: var(--indigo-h);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(79,70,229,0.35);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .submit-btn .btn-spinner {
+      display: none;
+      width: 18px;
+      height: 18px;
+      border: 2.5px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .submit-btn.loading .btn-text { display: none; }
+    .submit-btn.loading .btn-spinner { display: block; }
+
+    .form-footer-note {
+      text-align: center;
+      font-size: 11.5px;
+      color: var(--slate-light);
+      margin-top: 12px;
+    }
+
+    /* ── SUCCESS STATE ── */
+    .success-state {
+      display: none;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      background: #dcfce7;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin: 0 auto 20px;
+    }
+
+    .success-state h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--slate);
+      margin-bottom: 10px;
+    }
+
+    .success-state p {
+      font-size: 14px;
+      color: var(--slate-mid);
+      line-height: 1.6;
+    }
+
+    /* ── ERROR ── */
+    .error-msg {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 14px;
+      display: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 48px 28px; }
+      .hero-right { padding: 40px 20px; }
+      .form-card { padding: 28px 24px; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Simplif<span>IQ</span></div>
+  <span class="nav-badge">AI-Powered · Free Audit</span>
+</nav>
+
+<div class="hero">
+  <!-- Left: value prop -->
+  <div class="hero-left">
+    <span class="hero-eyebrow">Free Audit · No Commitment</span>
+    <h1 class="hero-title">
+      Your business,<br>
+      <em>automated.</em>
+    </h1>
+    <p class="hero-subtitle">
+      Submit your company details and receive a personalized AI automation audit — 
+      built specifically for your business, delivered to your inbox in minutes.
+    </p>
+    <ul class="proof-list">
+      <li>Deep research into your company's operations and challenges</li>
+      <li>Specific automation opportunities identified for your industry</li>
+      <li>Professional PDF report — ready to share with your team</li>
+      <li>Zero fluff. Real insights backed by AI analysis.</li>
+    </ul>
+  </div>
+
+  <!-- Right: form -->
+  <div class="hero-right">
+    <div class="form-card">
+      <div class="form-card-header">
+        <h2>Get Your Free Audit</h2>
+        <p>Takes 30 seconds. Your report arrives in minutes.</p>
+      </div>
+      <div class="form-divider"></div>
+
+      <div id="errorMsg" class="error-msg"></div>
+
+      <div id="formContent">
+        <div class="form-row">
+          <div class="field">
+            <label>Your Name *</label>
+            <input type="text" id="name" placeholder="Priya Sharma" required>
+          </div>
+          <div class="field">
+            <label>Work Email *</label>
+            <input type="email" id="email" placeholder="priya@company.com" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label>Company Name *</label>
+            <input type="text" id="company" placeholder="Acme Corp" required>
+          </div>
+          <div class="field">
+            <label>Your Role</label>
+            <input type="text" id="role" placeholder="Head of Ops">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Company Website *</label>
+          <input type="text" id="website" placeholder="acmecorp.com" required>
+        </div>
+
+        <div class="field">
+          <label>Any specific challenges? (optional)</label>
+          <textarea id="message" placeholder="e.g. We spend too much time on manual reporting..."></textarea>
+        </div>
+
+        <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">
+          <span class="btn-text">Generate My Audit Report →</span>
+          <div class="btn-spinner"></div>
+        </button>
+
+        <p class="form-footer-note">🔒 Your data is private and never shared.</p>
+      </div>
+
+      <!-- Success state -->
+      <div class="success-state" id="successState">
+        <div class="success-icon">📬</div>
+        <h3>Report on its way!</h3>
+        <p id="successMsg">We're analyzing your company right now. Your personalized audit report will arrive in your inbox within a few minutes.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  async function handleSubmit() {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const company = document.getElementById('company').value.trim();
+    const website = document.getElementById('website').value.trim();
+    const role = document.getElementById('role').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    const errorEl = document.getElementById('errorMsg');
+    errorEl.style.display = 'none';
+
+    // Basic validation
+    if (!name || !email || !company || !website) {
+      errorEl.textContent = 'Please fill in all required fields.';
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errorEl.textContent = 'Please enter a valid email address.';
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    // Loading state
+    const btn = document.getElementById('submitBtn');
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    try {
+      const response = await fetch('/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, company, website, role, message }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        document.getElementById('formContent').style.display = 'none';
+        const successState = document.getElementById('successState');
+        successState.style.display = 'block';
+        document.getElementById('successMsg').textContent = data.message;
+      } else {
+        throw new Error(data.detail || 'Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      errorEl.textContent = err.message || 'Something went wrong. Please try again.';
+      errorEl.style.display = 'block';
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    }
+  }
+
+  // Allow enter key to submit
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+      handleSubmit();
+    }
+  });
+</script>
+
+</body>
+</html>
